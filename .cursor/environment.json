@@ -1,4 +1,4 @@
 {
   "name": "Grok Build (grok CLI)",
-  "install": "command -v dotslash >/dev/null 2>&1 || cargo install dotslash --locked && ./bin/protoc --version && cargo build -p xai-grok-pager-bin"
+  "install": "command -v dotslash >/dev/null 2>&1 || cargo install dotslash --locked\n./bin/protoc --version\ncargo build -p xai-grok-pager-bin"
 }
