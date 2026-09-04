@@ -6,9 +6,10 @@ instrumentation. It is off by default and does not alter Mixpanel or
 
 NeMo Relay 0.8.3 pins `uuid` 1.18.1, while this workspace requires 1.23 or
 newer. The workspace patches `nemo-relay` and `nemo-relay-types` to immutable
-commit `1e799db5baf8bb10bf9aeb158fc60d3be1daa796`, which changes only the upstream
-workspace's `uuid` requirement from `=1.18.1` to `1`. Remove the patch after
-NeMo Relay publishes a compatible release.
+commit `d264f48a83a73286f4020c4275c31be355591fbb`, which changes the upstream
+workspace's `uuid` requirement from `=1.18.1` to `1` and normalizes the source
+workspace version to its published 0.8.3 release. Remove the patch after NeMo
+Relay publishes a compatible release.
 
 ## Confirmed call sites
 

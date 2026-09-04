@@ -2,8 +2,8 @@
 
 [patch.crates-io]
 async-openai = { git = "https://github.com/our-forks/async-openai.git", rev = "95b52ebdedf42143083cf3d6f0e0be7c84e9c808" }
-nemo-relay = { git = "https://github.com/sam-friedman-cursor/grok-build.git", rev = "1e799db5baf8bb10bf9aeb158fc60d3be1daa796" }
-nemo-relay-types = { git = "https://github.com/sam-friedman-cursor/grok-build.git", rev = "1e799db5baf8bb10bf9aeb158fc60d3be1daa796" }
+nemo-relay = { git = "https://github.com/sam-friedman-cursor/grok-build.git", rev = "d264f48a83a73286f4020c4275c31be355591fbb" }
+nemo-relay-types = { git = "https://github.com/sam-friedman-cursor/grok-build.git", rev = "d264f48a83a73286f4020c4275c31be355591fbb" }
 
 [workspace]
 resolver = "2"
