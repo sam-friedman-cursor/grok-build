@@ -819,7 +819,28 @@ impl SessionActor {
                                 } else {
                                     None
                                 };
-                                dispatch_tool(&workspace_ops, &prepared, &session_id).await
+                                #[cfg(feature = "nemo-relay")]
+                                {
+                                    let relay_workspace_ops = workspace_ops.clone();
+                                    let relay_prepared = Arc::clone(&prepared);
+                                    let relay_session_id = Arc::clone(&session_id);
+                                    nemo_relay_thin::managed_tool_call(
+                                        session_id.as_ref(),
+                                        async move {
+                                            dispatch_tool(
+                                                &relay_workspace_ops,
+                                                &relay_prepared,
+                                                &relay_session_id,
+                                            )
+                                            .await
+                                        },
+                                    )
+                                    .await
+                                }
+                                #[cfg(not(feature = "nemo-relay"))]
+                                {
+                                    dispatch_tool(&workspace_ops, &prepared, &session_id).await
+                                }
                             };
                             let mut result = result;
                             let snapshot =

@@ -265,6 +265,11 @@ pub(super) async fn run_session(
     index_root: std::path::PathBuf,
     fs_watch_caps: fs_watch::FsWatchCapabilities,
 ) {
+    #[cfg(feature = "nemo-relay")]
+    let _nemo_relay_session = nemo_relay_thin::SessionScope::start(
+        session.session_info.id.to_string(),
+        session.startup_hints.parent_session_id.as_deref(),
+    );
     let (completion_tx, mut completion_rx) =
         mpsc::unbounded_channel::<super::turn_task::TurnCompletionMsg>();
     let mut turn_end_queue = super::turn_end_hooks::TurnEndQueue::spawn(session.clone());

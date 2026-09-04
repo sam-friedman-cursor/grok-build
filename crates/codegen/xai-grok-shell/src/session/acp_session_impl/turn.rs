@@ -1847,6 +1847,8 @@ impl SessionActor {
         json_schema: Option<serde_json::Value>,
         salvage: &mut super::length_salvage::LengthSalvage,
     ) -> Result<TurnOutcome, acp::Error> {
+        #[cfg(feature = "nemo-relay")]
+        let _nemo_relay_turn = nemo_relay_thin::TurnScope::start(self.session_info.id.to_string());
         let _ = self.compaction.auto_compact_suppressed.compare_exchange(
             crate::session::compaction_config::SUPPRESS_TURN,
             crate::session::compaction_config::SUPPRESS_NONE,

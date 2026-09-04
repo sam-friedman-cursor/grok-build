@@ -1661,9 +1661,28 @@ impl SessionActor {
             let _permit = acquire_subagent_sampling_permit(&self.sampling_gate).await;
             gate_span.close();
             let _sampling_span = region!("turn.sampling", Parent::Inherit);
-            self.sampler_handle
-                .submit_and_collect_with_metadata(request_id.clone(), request)
+            #[cfg(feature = "nemo-relay")]
+            {
+                let sampler_handle = self.sampler_handle.clone();
+                let relay_request_id = request_id.clone();
+                let session_id = self.session_info.id.to_string();
+                nemo_relay_thin::managed_llm_call(
+                    &session_id,
+                    async move {
+                        sampler_handle
+                            .submit_and_collect_with_metadata(relay_request_id, request)
+                            .await
+                    },
+                    |collected| collected.result.is_ok(),
+                )
                 .await
+            }
+            #[cfg(not(feature = "nemo-relay"))]
+            {
+                self.sampler_handle
+                    .submit_and_collect_with_metadata(request_id.clone(), request)
+                    .await
+            }
         };
         let terminal_event_queued = collected.terminal_event_queued;
         let recovery_attempts = collected.doom_loop_recovery_attempts;
