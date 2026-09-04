@@ -1,0 +1,22 @@
+[package]
+name = "uuid"
+version = "1.26.0"
+edition.workspace = true
+license = "Apache-2.0 OR MIT"
+publish = false
+
+[features]
+default = ["std"]
+std = ["uuid-upstream/std"]
+atomic = ["uuid-upstream/atomic"]
+js = ["uuid-upstream/js"]
+serde = ["uuid-upstream/serde"]
+v4 = ["uuid-upstream/v4"]
+v5 = ["uuid-upstream/v5"]
+v7 = ["uuid-upstream/v7"]
+
+[dependencies]
+uuid-upstream = { package = "uuid", git = "https://github.com/uuid-rs/uuid.git", rev = "cdc96a87bddc38d0eb8f894c764e151d2299b4b3", default-features = false }
+
+[lints]
+workspace = true
