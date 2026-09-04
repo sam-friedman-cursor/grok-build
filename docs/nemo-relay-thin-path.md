@@ -4,6 +4,12 @@ The `xai-grok-shell/nemo-relay` Cargo feature enables direct NeMo Relay lifecycl
 instrumentation. It is off by default and does not alter Mixpanel or
 `xai-grok-telemetry`.
 
+NeMo Relay 0.8.3 pins `uuid` 1.18.1, while this workspace requires 1.23 or
+newer. The workspace patches `nemo-relay` and `nemo-relay-types` to immutable
+commit `1e799db5baf8bb10bf9aeb158fc60d3be1daa796`, which changes only the upstream
+workspace's `uuid` requirement from `=1.18.1` to `1`. Remove the patch after
+NeMo Relay publishes a compatible release.
+
 ## Confirmed call sites
 
 The shell owns these boundaries:
